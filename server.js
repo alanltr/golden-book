@@ -37,18 +37,13 @@ app.use(session({
   cookie: { secure: false } // false car on est pas en https
 }))
 
+// Middleware des msg flash
+app.use(require('./middleware/flash'));
+
 /**
  * ROUTES
  */
 app.get('/', (req, res) => {
-  // On vient ici récupérer notre msg d'erreur SI il existe
-  if (req.session.error) {
-    // On définit notre variable error créée en route POST de sorte à 
-    // ce qu'elle soit accessible avec locals
-    res.locals.error = req.session.error
-    // Ensuite on supprime la variable
-    req.session.error = undefined
-  }
   res.render('pages/index');
 });
 
@@ -56,7 +51,7 @@ app.post('/', (req, res) => {
   // Si msg undefined ou vide :
   if (req.body.message === undefined || req.body.message === '') {
     // On crée une msg d'erreur en session
-    req.session.error = 'Il y a une erreur';
+    req.flash('error', "Il y a une erreur vous n\'avez pas posté de message.");
     // et on redirige vers accueil ou on va afficher ce msg
     res.redirect('/');
   }

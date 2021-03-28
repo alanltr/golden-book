@@ -18,8 +18,9 @@
       <!-- Pour accéeder à une variable qui pottentiellement n'existe pas,
       il faut rajouter locals devant. On evite donc qu'il nous dise que la
       variable n'existe pas -->
-      <% if (locals.error) { %> 
+      
+      <% if (locals.flash && locals.flash.error) { %> 
       <div class="ui negative message">
-        <%= error %> 
+        <%= flash.error %> 
       </div>
       <% } %> 
