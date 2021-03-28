@@ -15,3 +15,11 @@
       <a href="/" class="header item">Accueil</a>
     </div>
     <div class="ui main container">
+      <!-- Pour accéeder à une variable qui pottentiellement n'existe pas,
+      il faut rajouter locals devant. On evite donc qu'il nous dise que la
+      variable n'existe pas -->
+      <% if (locals.error) { %> 
+      <div class="ui negative message">
+        <%= error %> 
+      </div>
+      <% } %> 
