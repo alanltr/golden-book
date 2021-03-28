@@ -21,7 +21,13 @@
         <img src="https://randomuser.me/api/portraits/lego/6.jpg" alt="">
       </a>
       <div class="content">
-        <div class="test"><%= message.content %> </div>
+        <div class="metadata">
+          <div class="date">
+            <!-- fromNow() est une fonction de moment (voir moment npm) -->
+            <%= message.created_at.fromNow() %>
+          </div>
+        </div>
+        <div class="test"><%= message.content %></div>
       </div>
     </div>
   <% } %>

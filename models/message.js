@@ -1,6 +1,25 @@
+const moment = require('../config/moment');
 const connection = require('../config/db');
 
+
+
 class Message {
+  // C'est grace au constructeur qu'on peut réassigner des données depuis les données reçues,
+  // comme le formatage de la date par exemple (voir get created_at)
+  // Pour que le modele soit correctement construit il faut mapper sur nos résultats de BDD
+  // et pour chaque itération créé une instance de Message
+  constructor (row) {
+    this.row = row
+  };
+
+  // Getter du content
+  get content () {
+    return this.row.content;
+  }
+  // Getter du created_at
+  get created_at () {
+    return moment (this.row.created_at);
+  }
 
   static create (content, callback) {
     // Effectue la connection avec la base
@@ -27,7 +46,9 @@ class Message {
       (err, rows) => {
         if (err) throw err
         // Sinon tt s'est bien passé on éxecute la callback
-        callback(rows);
+        // On map sur le résultat pour que chaque message récupéré en base soit une 
+        // instance de notre classe. Voir constructor et getter
+        callback(rows.map((row) => new Message(row)));
       }
     );
   };
