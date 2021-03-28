@@ -17,7 +17,9 @@ app.set('view engine', 'ejs');
 
 /**
  * MIDDLEWARES
+ * 
  */
+// Middleware des appels vers les assets
 // On indique ici à express quel dossier sert a distribuer les fichiers statiques
 // c'est de cette manière qu'on a pu récupérer le css contenu dedans
 // En precisant assets en 1er arg, on le rajoute au chemin des fichiers à recup
