@@ -52,8 +52,16 @@ app.post('/', (req, res) => {
   if (req.body.message === undefined || req.body.message === '') {
     // On crée une msg d'erreur en session
     req.flash('error', "Il y a une erreur vous n\'avez pas posté de message.");
-    // et on redirige vers accueil ou on va afficher ce msg
+    // Puis on redirige vers accueil ou on va afficher le msg d'erreur ou succès
     res.redirect('/');
+  } else {
+    const Message = require('./models/message');
+    // Asynchrone 
+    Message.create(req.body.message, () => {
+      req.flash('success', "Merci !")
+      // Puis on redirige vers accueil ou on va afficher le msg d'erreur ou succès
+      res.redirect('/');
+    });
   }
 })
 
