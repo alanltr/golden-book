@@ -1,0 +1,24 @@
+{
+  "name": "golden-book",
+  "version": "1.0.0",
+  "description": "Un livre d'or réalisé avec Node",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alanltr/golden-book.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/alanltr/golden-book/issues"
+  },
+  "homepage": "https://github.com/alanltr/golden-book#readme",
+  "dependencies": {
+    "ejs": "^3.1.6",
+    "express": "^4.17.1"
+  }
+}
