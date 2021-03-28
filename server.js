@@ -61,13 +61,26 @@ app.post('/', (req, res) => {
     res.redirect('/');
   } else {
     const Message = require('./models/message');
-    // Asynchrone 
+    // Asynchrone | 1er arg: contenu / 2eme arg: callback
     Message.create(req.body.message, () => {
       req.flash('success', "Merci !")
       // Puis on redirige vers accueil ou on va afficher le msg d'erreur ou succès
       res.redirect('/');
     });
   }
+})
+
+// Route pour récup un seul msg
+app.get('/message/:id', (req, res) => {
+  // On importe notre modèle pour en bénéficier
+  const Message = require('./models/message');
+
+  // Async | On renvoi vers la méthode find qui va trouver le msg voulu | 1er arg: id / 2eme arg: callback
+  Message.find(req.params.id, (message) => {
+    // 1er arg: l'emplacement de la vue a render
+    // 2eme arg: les var à injecter dans la vue
+    res.render('messages/show', { message: message })
+  })
 })
 
 

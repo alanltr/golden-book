@@ -12,6 +12,10 @@ class Message {
     this.row = row
   };
 
+  // Getter de l'id
+  get id () {
+    return this.row.id;
+  }
   // Getter du content
   get content () {
     return this.row.content;
@@ -49,6 +53,23 @@ class Message {
         // On map sur le résultat pour que chaque message récupéré en base soit une 
         // instance de notre classe. Voir constructor et getter
         callback(rows.map((row) => new Message(row)));
+      }
+    );
+  };
+
+  static find (id, callback) {
+    connection.query(
+      // 1er arg : la requete Sql
+      'SELECT * FROM messages WHERE id = ?',
+      // 2eme arg : l'id pour la requete
+      [id],
+      // 3eme arg : callback qui prend en paramétre 1. une erreur s'il y en a une et 2. le nb de lignes retournées
+      (err, rows) => {
+        if (err) throw err
+        // Sinon tt s'est bien passé on éxecute la callback
+        // On map sur le résultat pour que chaque message récupéré en base soit une 
+        // instance de notre classe. Voir constructor et getter
+        callback(new Message(rows[0]));
       }
     );
   };
