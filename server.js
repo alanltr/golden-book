@@ -42,9 +42,7 @@ app.use(session({
 // Middleware des msg flash
 app.use(require('./middleware/flash'));
 
-/**
- * Middleware des routes
- */
+// Middleware des routes
 app.use('/', messageRoute);
 
 
