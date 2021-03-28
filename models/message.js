@@ -1,7 +1,7 @@
+// Import de notre module moment qu'on a défini en 'fr'
 const moment = require('../config/moment');
+// Import du fichier de config de connexion à la bdd
 const connection = require('../config/db');
-
-
 
 class Message {
   // C'est grace au constructeur qu'on peut réassigner des données depuis les données reçues,
