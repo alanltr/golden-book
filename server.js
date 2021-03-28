@@ -3,6 +3,8 @@ const express = require('express');
 const app = express();
 
 const bodyParser = require('body-parser');
+const session = require('express-session');
+
 
 /**
  * MOTEUR DE TEMPLATES
@@ -22,25 +24,50 @@ app.set('view engine', 'ejs');
 app.use('/assets', express.static('public'))
 
 app.use(express.json());
+
 app.use(express.urlencoded({
   extended: true
 }));
+
+// Middleware de session | @see http://expressjs.com/en/resources/middleware/session.html
+app.use(session({
+  secret: 'azerty', // Clé de chiffrage du cookie
+  resave: false, // Force la session à être sauvegardée dans le magasin de sessions, même si la session n'a jamais été modifiée pendant la demande
+  saveUninitialized: true, // Force une session «non initialisée» à être enregistrée dans le magasin
+  cookie: { secure: false } // false car on est pas en https
+}))
 
 /**
  * ROUTES
  */
 app.get('/', (req, res) => {
-  res.render('pages/index', {test: 'salut'});
+  // On vient ici récupérer notre msg d'erreur SI il existe
+  if (req.session.error) {
+    // On définit notre variable error créée en route POST de sorte à 
+    // ce qu'elle soit accessible avec locals
+    res.locals.error = req.session.error
+    // Ensuite on supprime la variable
+    req.session.error = undefined
+  }
+  res.render('pages/index');
 });
 
 app.post('/', (req, res) => {
+  // Si msg undefined ou vide :
   if (req.body.message === undefined || req.body.message === '') {
-    res.render('pages/index', {error: 'Il manque un message !'})
+    // On crée une msg d'erreur en session
+    req.session.error = 'Il y a une erreur';
+    // et on redirige vers accueil ou on va afficher ce msg
+    res.redirect('/');
   }
 })
 
 
 app.listen(3000);
+
+
+
+
 
 
 // app.use(bodyParser.urlencoded({ extended: false }));
