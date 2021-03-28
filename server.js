@@ -44,7 +44,12 @@ app.use(require('./middleware/flash'));
  * ROUTES
  */
 app.get('/', (req, res) => {
-  res.render('pages/index');
+  const Message = require('./models/message');
+    // Asynchrone
+    Message.all((messages) => {
+      // On envoi le rendu en joignant les msg récupérés en BDD
+      res.render('pages/index', { messages: messages });
+    })
 });
 
 app.post('/', (req, res) => {

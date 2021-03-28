@@ -12,5 +12,20 @@
   </button>
 </form>
 
+<div class="ui comments">
+  <h3 class="ui dividing header">Commentaire</h3>
+  <!-- Pour chaque message du tableau messages -->
+  <% for (message of messages) { %>
+    <div class="comment">
+      <a class="avatar">
+        <img src="https://randomuser.me/api/portraits/lego/6.jpg" alt="">
+      </a>
+      <div class="content">
+        <div class="test"><%= message.content %> </div>
+      </div>
+    </div>
+  <% } %>
+</div>
+
 <%- include ('footer') -%> 
 
