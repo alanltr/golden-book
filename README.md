@@ -1,2 +1,2 @@
 # golden-book
-Un livre d'or réalisé avec Node
+Un livre d'or réalisé avec Node, Express et MySQL
